@@ -146,7 +146,15 @@ Route durable knowledge to its most specific owner:
 
 - Home-domain captain preferences and working style belong in `data/captain.md` after inspect-then-update.
 - Captain preferences shared across secondmate domains belong in the primary home's `data/captain-shared.md` under the `secondmate-provisioning` contract.
-- Fleet-local operational facts belong in curated, home-local `data/learnings.md`.
+- Fleet-local operational facts belong in curated, home-local `data/learnings.md`, except in a knowledge-vault home.
+
+A knowledge-vault home is a Firstmate checkout vendored as a git submodule of a repository that has a `vault/` directory at its root; the session-start digest prints its `KNOWLEDGE VAULT` section when this applies.
+In a knowledge-vault home, that repository's `AGENTS.md` owns durable knowledge and replaces `data/learnings.md`:
+
+- Learnings, handoffs, gaps, oneoffs, artifacts, and questions go to the vault under its `AGENTS.md` routing, naming, and metadata rules, never to `data/learnings.md`.
+- Read vault knowledge with `vault-nav` before dispatching work on a project, and put the relevant note paths in the crewmate brief.
+- Every crewmate brief for a project instructs the worker to follow the vault session workflow for that project, including its handoff.
+- Captain preferences stay in `data/captain.md`; operational state stays in `state/`, `data/backlog.md`, and task records.
 - Task-scoped notes belong with the backlog item, and investigation findings belong in the scout report.
 - Knowledge useful to almost every contributor to one project belongs in that project's committed `AGENTS.md`, which only deliberate human edits extend.
 - Knowledge general to every firstmate user belongs in this repo's shared tracked surface.

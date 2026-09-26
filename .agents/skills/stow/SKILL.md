@@ -217,11 +217,11 @@ A local skill exists only in this home, so offloading an entry out of `data/capt
    Do not re-derive or duplicate that mapping here.
 3. **Write within the existing boundaries.**
    - Captain preferences and fleet-local operational facts belong in the destination selected by AGENTS.md after the required whole-file curation pass.
-     Create `data/learnings.md` only for a genuinely new local learning with no stronger owner.
+     Create `data/learnings.md` only for a genuinely new local learning with no stronger owner; in a knowledge-vault home, write the learning to the vault instead.
    - In a primary home, curate shared captain preferences only under the existing primary-authoritative shared-preference contract.
      In a secondmate home, route a newly discovered shared preference to the main firstmate through marked status or a document pointer instead of editing the inherited file.
    - Project-intrinsic knowledge never goes into a project's `AGENTS.md` through this fleet: a crewmate edits those files only to correct factually wrong information (AGENTS.md section 6), so no ship task carries an addition.
-     Keep the candidate in `data/learnings.md` or surface it in the completion receipt so the captain can extend the file by hand.
+     Keep the candidate in `data/learnings.md` (the vault in a knowledge-vault home) or surface it in the completion receipt so the captain can extend the file by hand.
    - Knowledge general to every Firstmate user belongs in this repo's shared tracked material through the normal branch, no-mistakes, PR, and captain-merge path.
    - For task-scoped notes, inspect the item with `bin/fm-tasks-axi.sh show <id> --full`, classify the change as new, duplicate, superseding, or obsolete, then use a considered replacement body through `bin/fm-tasks-axi.sh update <id> --body-file <path>`.
      Use `--archive-body` when recoverability matters.

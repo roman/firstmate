@@ -1018,6 +1018,19 @@ print_file_or_absent "$DATA/captain.md" "data/captain.md"
 print_file_or_absent "$DATA/captain-shared.md" "data/captain-shared.md (shared, main-authoritative, read-only in secondmate homes)"
 print_file_or_absent "$DATA/learnings.md" "data/learnings.md"
 
+# A Firstmate vendored as a submodule of a knowledge-vault repository hands
+# durable knowledge to that vault (AGENTS.md section 6). Claude Code stops
+# loading instruction files at the submodule's repository root, so the digest
+# carries the vault's rules itself. The notes are large and project-scoped, so
+# only their location is printed.
+KNOWLEDGE_ROOT=$(git -C "$FM_ROOT" rev-parse --show-superproject-working-tree 2>/dev/null || true)
+if [ -n "$KNOWLEDGE_ROOT" ] && [ -d "$KNOWLEDGE_ROOT/vault" ]; then
+  section "KNOWLEDGE VAULT"
+  printf 'vault: %s/vault\n' "$KNOWLEDGE_ROOT"
+  printf 'read: vault-nav --vault %s/vault start <project>\n' "$KNOWLEDGE_ROOT"
+  print_file_or_absent "$KNOWLEDGE_ROOT/AGENTS.md" "vault rules ($KNOWLEDGE_ROOT/AGENTS.md)"
+fi
+
 # --- 9. closing reminder -----------------------------------------------
 stage next-step
 section "NEXT STEP"
