@@ -1022,12 +1022,18 @@ print_file_or_absent "$DATA/learnings.md" "data/learnings.md"
 # durable knowledge to that vault (AGENTS.md section 6). Claude Code stops
 # loading instruction files at the submodule's repository root, so the digest
 # carries the vault's rules itself. The notes are large and project-scoped, so
-# only their location is printed.
+# only their location is printed. vault-nav ships with the vault repository
+# rather than the operator's system, so without one on PATH the reader runs the
+# vault's own flake output, which works from any worker worktree.
 KNOWLEDGE_ROOT=$(git -C "$FM_ROOT" rev-parse --show-superproject-working-tree 2>/dev/null || true)
 if [ -n "$KNOWLEDGE_ROOT" ] && [ -d "$KNOWLEDGE_ROOT/vault" ]; then
   section "KNOWLEDGE VAULT"
   printf 'vault: %s/vault\n' "$KNOWLEDGE_ROOT"
-  printf 'read: vault-nav --vault %s/vault start <project>\n' "$KNOWLEDGE_ROOT"
+  vault_nav=vault-nav
+  if ! command -v vault-nav >/dev/null 2>&1 && [ -f "$KNOWLEDGE_ROOT/flake.nix" ]; then
+    vault_nav="nix run $KNOWLEDGE_ROOT#vault-nav --"
+  fi
+  printf 'read: %s --vault %s/vault start <project>\n' "$vault_nav" "$KNOWLEDGE_ROOT"
   print_file_or_absent "$KNOWLEDGE_ROOT/AGENTS.md" "vault rules ($KNOWLEDGE_ROOT/AGENTS.md)"
 fi
 
